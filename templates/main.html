@@ -50,21 +50,14 @@
     <li><a href="users/z">z</a></li>
   </ul>
   <ul class="users">
-    <?php 
-    if(isset($users)):
-    foreach($users as $user): 
-    ?>
-    <li><a href="user/<?php echo $user->userId ?>"><?php echo $user->firstname." ".$user->lastname; ?></a><i class="icon-star"></i></li>
-    <?php 
-    endforeach; 
-    endif;
-    ?>
+    <?php require('partials/users.html'); ?>
   </ul>
   </section>
   <section>
-    
-    <h1>Han Solo</h1>
-    <h2>Tatooine</h2>
+    <?php if(isset($user)): ?>
+    <h1><?php echo $user->firstname." ".$user->lastname; ?></h1>
+    <h2><?php echo $user->spotWifi; ?></h2>
+    <?php endif; ?>
    
   </section>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
