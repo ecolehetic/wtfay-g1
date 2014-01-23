@@ -19,7 +19,6 @@
     <form action="users/search" method="post">
       <input type="text" name="name" placeholder="Recherche" autocomplete="off"/>
     </form>
-    <h1><?php if(isset($PARAMS['alpha'])):echo $PARAMS['alpha'];endif; ?></h1>
   </header>
   <section>
   <ul class="index">
@@ -51,12 +50,15 @@
     <li><a href="users/z">z</a></li>
   </ul>
   <ul class="users">
-    <li><a href="user/han.solo">Han Solo</a><i class="icon-star"></i></li>
-    <li><a href="user/han.solo">Han Solo</a><i class="icon-star"></i></li>
-    <li><a href="user/han.solo">Han Solo</a><i class="icon-star"></i></li>
-    <li><a href="user/han.solo">Han Solo</a><i class="icon-star"></i></li>
-    <li><a href="user/han.solo">Han Solo</a><i class="icon-star"></i></li>
-    
+    <?php 
+    if(isset($users)):
+    foreach($users as $user): 
+    ?>
+    <li><a href="user/<?php echo $user->userId ?>"><?php echo $user->firstname." ".$user->lastname; ?></a><i class="icon-star"></i></li>
+    <?php 
+    endforeach; 
+    endif;
+    ?>
   </ul>
   </section>
   <section>
