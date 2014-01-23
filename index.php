@@ -24,7 +24,11 @@ $f3->route('GET /users/@alpha ',function($f3){
 $f3->route('GET /user/@name',function($f3){
   $user=new DB\SQL\Mapper($f3->get('dB'),'wifiloc');
   $f3->set('user',$user->load('userId="'.$f3->get('PARAMS.name').'"'));
-  echo View::instance()->render('main.html');
+  if($f3->get('AJAX')){
+    echo View::instance()->render('partials/user.html');
+  }else{
+    echo View::instance()->render('main.html');
+  }
 });
 
 
