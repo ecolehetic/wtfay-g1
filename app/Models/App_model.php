@@ -1,12 +1,9 @@
 <?php
-
-
-
-class App_model{
+class App_model extends Model{
   
   
   function __construct(){
-
+    parent::__construct();
   }
   
   function home(){
@@ -14,18 +11,15 @@ class App_model{
   }
   
   function getUsers($f3,$params){
-    $users=new DB\SQL\Mapper($f3->get('dB'),'wifiloc');
-    return $users->find(array('promo=?',$params['promo']),array('order'=>'lastname'));
+    return $this->getMapper('wifiloc')->find(array('promo=?',$params['promo']),array('order'=>'lastname'));
   }
   
   function getUser($f3,$params){
-    $user=new DB\SQL\Mapper($f3->get('dB'),'wifiloc');
-    return $user->load('userId="'.$params['name'].'"');
+    return $this->getMapper('wifiloc')->load('userId="'.$params['name'].'"');
   }
   
   function searchUsers($f3,$params){
-    $users=new DB\SQL\Mapper($f3->get('dB'),'wifiloc');
-    return $users->find('firstname like "%'.$params['keywords'].'%" or lastname like "%'.$params['keywords'].'%"');
+    return $this->getMapper('wifiloc')->find('firstname like "%'.$params['keywords'].'%" or lastname like "%'.$params['keywords'].'%"');
   }
   
 }
