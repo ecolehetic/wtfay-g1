@@ -2,7 +2,9 @@
 if(isset($users)):
 foreach($users as $user): 
 ?>
-<li><a href="user/<?php echo $user->userId ?>"><?php echo $user->firstname." ".$user->lastname; ?></a><i class="icon-star"></i></li>
+<li><a href="user/<?php echo $user->userId ?>"><?php echo $user->firstname." ".$user->lastname; ?></a>
+  <a href="favorite/2" class="fav"><i class="icon-star"></i></a>
+  </li>
 <?php 
 endforeach; 
 endif;
