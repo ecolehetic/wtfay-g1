@@ -12,6 +12,7 @@ private $dB;
     return new \DB\SQL\Mapper($this->dB,$table);
   }
   
+  
 }
 
 ?>
