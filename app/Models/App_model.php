@@ -23,6 +23,20 @@ class App_model extends Model{
     $query.=$params['filter']?' and promo="'.$params['filter'].'"':'';
     return $this->getMapper('wifiloc')->find($query);
   }
+  public function favorite($params){
+    $map=$this->getMapper('wififav');
+    $favorite=$map->load(array('favId=? and logId=?',$params['favId'],$params['logId']));
+    if(!$favorite){
+      $map->favId=$params['favId'];
+      $map->logId=$params['logId'];
+      $map->save();
+      return true;
+    }else{
+      $favorite->erase();
+      return false;
+    }
+
+   }
   
 }
 ?>

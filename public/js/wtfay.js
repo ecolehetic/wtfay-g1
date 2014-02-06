@@ -25,7 +25,7 @@ $('.users').on('click','a',function(e){
 	})
 	.success(function(data){
 		$('section + section').html(data);
-	})
+	});
 });
 $('input[name="name"]').on('keyup',function(e){
 	var $this=$(this);

@@ -24,6 +24,12 @@ class App_controller extends Controller{
     $f3->set('users',$this->model->searchUsers(array('keywords'=>$f3->get('POST.name'),'filter'=>$f3->get('POST.filter'))));
     $this->tpl['async']='partials/users.html';
   }
+  
+  public function favorite($f3){
+    $status=$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('logId')));
+    echo json_encode(array('status'=>$status));
+    exit;
+  }
 
 }
 ?>
