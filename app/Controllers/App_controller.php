@@ -26,9 +26,8 @@ class App_controller extends Controller{
   }
   
   public function favorite($f3){
-    $status=$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('logId')));
-    echo json_encode(array('status'=>$status));
-    exit;
+    $f3->set('status',$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('logId'))));
+    $this->tpl['async']='json/status.json';
   }
 
 }

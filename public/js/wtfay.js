@@ -18,7 +18,7 @@ $('.index a').on('click',function(e){
 	
 });
 
-$('.users').on('click','a',function(e){
+$('.users').on('click','a:first-of-type',function(e){
 	e.preventDefault();
 	$.ajax({
 		url:$(this).attr('href')
@@ -26,7 +26,22 @@ $('.users').on('click','a',function(e){
 	.success(function(data){
 		$('section + section').html(data);
 	});
+})
+.on('click','.fav',function(e){
+	e.preventDefault();
+	var $this=$(this);
+	$.getJSON($this.attr('href'))
+	.success(function(data){
+		if(data.status==false){
+			$this.removeClass('on');
+		}else{
+			$this.addClass('on');
+		}
+	});
 });
+
+
+
 $('input[name="name"]').on('keyup',function(e){
 	var $this=$(this);
 	var $parent=$this.parent('form');
