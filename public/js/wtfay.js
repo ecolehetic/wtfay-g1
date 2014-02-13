@@ -56,7 +56,31 @@ $('input[name="name"]').on('keyup',function(e){
 	.success(function(data){
 		$('.users').html(data);
 	})
-})
+});
+
+var user=document.getElementById('user');
+user.ondragover = function(e){
+	this.classList.add('dragover');
+	return false;
+}
+user.ondrop = function(e){
+	e.preventDefault();
+	var files=e.dataTransfer.files;
+	var datas = new FormData();
+  for (i in files) {
+    datas.append('file'+i, files[i]);
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'upload/');
+   xhr.onload = function () {
+	  if(xhr.status === 200) {
+	    console.log('ok');
+	  }else{
+	    console.log('error');
+	  }
+	};
+	xhr.send(datas);
+}
 
 
 

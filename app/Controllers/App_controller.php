@@ -97,7 +97,16 @@ class App_controller extends Controller{
   
   
 
-
+  public function upload($f3){
+    $this->tpl['sync']='upload.html';
+    switch($f3->get('VERB')){
+      case 'POST':
+        \Web::instance()->receive(function($file){
+          print_r($file);
+        },true,true);
+      break;
+    }
+  }
 
 
 
