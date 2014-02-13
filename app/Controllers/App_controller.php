@@ -12,7 +12,7 @@ class App_controller extends Controller{
   }
   
   public function getFavorite($f3){
-    $f3->set('users',$this->model->getFavorite(array('logId'=>$f3->get('logId'))));
+    $f3->set('users',$this->model->getFavorite(array('logId'=>$f3->get('SESSION.id'))));
     $this->tpl['async']='partials/users.html';
   }
   
@@ -32,7 +32,7 @@ class App_controller extends Controller{
   }
   
   public function favorite($f3){
-    $f3->set('status',$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('logId'))));
+    $f3->set('status',$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('SESSION.id'))));
     $this->tpl['async']='json/status.json';
   }
   
@@ -47,7 +47,7 @@ class App_controller extends Controller{
           'password'=>$f3->get('POST.password')
         ));
         if(!$auth){
-          $f3->set('error','Oops, vos identifiants sont erronés. Veuillez ré-essayer.');
+          $f3->set('error',$f3->get('loginError'));
           $this->tpl['sync']='signin.html';
         }else{
           $user=array(
