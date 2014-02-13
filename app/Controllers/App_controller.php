@@ -10,13 +10,18 @@ class App_controller extends Controller{
     
   }
   
+  public function getFavorite($f3){
+    $f3->set('users',$this->model->getFavorite(array('logId'=>$f3->get('logId'))));
+    $this->tpl['async']='partials/users.html';
+  }
+  
   public function getUsers($f3){
     $f3->set('users',$this->model->getUsers(array('promo'=>$f3->get('PARAMS.promo'))));
     $this->tpl['async']='partials/users.html';
   }
   
   public function getUser($f3){
-    $f3->set('user',$this->model->getUser(array('name'=>$f3->get('PARAMS.name'))));
+    $f3->set('user',$this->model->getUser(array('id'=>$f3->get('PARAMS.id'))));
     $this->tpl['async']='partials/user.html';
   }
   
@@ -29,6 +34,51 @@ class App_controller extends Controller{
     $f3->set('status',$this->model->favorite(array('favId'=>$f3->get('PARAMS.favId'),'logId'=>$f3->get('logId'))));
     $this->tpl['async']='json/status.json';
   }
+  
+  
+  
+  
+  
+  
+
+  
+  public function getIssues(){
+    $web=new \Web();
+    $token='e43b804c8d86a44abb25e827379b3b2216273c61';
+    $header=array('header'=>array('Authorization: token '.$token));
+    $result=$web->request('https://api.github.com/repos/ecolehetic/wtfay-g1/issues',$header);
+    print_r(json_decode($result['body']));
+  }
+  
+  
+  public function setIssue(){
+    $web=new \Web();
+    $token='e43b804c8d86a44abb25e827379b3b2216273c61';
+    $header=array('header'=>array('Authorization: token '.$token));
+    $header['method']='POST';
+    $issue=array('title'=>'','body'=>"t'es trop un noob",'labels'=>array('bug'));
+    $header['content']=json_encode($issue);
+    $result=$web->request('https://api.github.com/repos/ecolehetic/wtfay-g1/issues',$header);
+    print_r($result);
+    exit;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 ?>

@@ -1,0 +1,21 @@
+{
+"header":[
+<?php if(isset($header)): ?>
+  "code":"<?php echo $header['code']; ?>",
+  "status":"<?php echo $header['status']; ?>",
+  "text":"<?php echo $header['text']; ?>"
+<?php endif; ?>
+],
+"body":[
+<?php if(isset($users)): ?>
+<?php foreach($users as $user):?>
+{
+"firstname":"<?php echo $user->firstname;?>",
+"lastname":"<?php echo $user->lastname;?>",
+"id":"<?php echo $user->id;?>",
+"user_url":"<?php echo 'http://localhost/wtfay-g1/api/users/'.$user->id; ?>"
+},
+<?php endforeach;?>
+<?php endif; ?>
+]
+}
