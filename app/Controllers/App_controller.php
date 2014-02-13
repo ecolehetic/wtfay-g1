@@ -2,6 +2,7 @@
 class App_controller extends Controller{
 
   public function __construct(){
+    parent::__construct();
     $this->tpl=array('sync'=>'main.html');
   }
 
@@ -35,6 +36,37 @@ class App_controller extends Controller{
     $this->tpl['async']='json/status.json';
   }
   
+  public function signin($f3){
+    switch($f3->get('VERB')){
+      case 'GET':
+         $this->tpl['sync']='signin.html';
+      break;
+      case 'POST':
+        $auth=$this->model->signin(array(
+          'login'=>$f3->get('POST.login'),
+          'password'=>$f3->get('POST.password')
+        ));
+        if(!$auth){
+          $f3->set('error','Oops, vos identifiants sont erronés. Veuillez ré-essayer.');
+          $this->tpl['sync']='signin.html';
+        }else{
+          $user=array(
+            'id'=>$auth->id,
+            'firstname'=>$auth->firstname,
+            'lastname'=>$auth->lastname
+          );
+          $f3->set('SESSION',$user);
+          $f3->reroute('/');
+        }
+      break;
+    }
+  }
+  
+  
+  public function signout($f3){
+    session_destroy();
+    $f3->reroute('/signin');
+  }
   
   
   
@@ -62,7 +94,8 @@ class App_controller extends Controller{
     print_r($result);
     exit;
   }
-
+  
+  
 
 
 

@@ -42,6 +42,10 @@ class App_model extends Model{
     }
 
    }
+   
+  public function signin($params){
+    return $this->getMapper('wifiloc')->load(array('userId=?',$params['login']));
+  }
   
 }
 ?>
