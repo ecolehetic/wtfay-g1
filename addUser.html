@@ -1,0 +1,54 @@
+<html>
+	<header>
+		  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	</header>
+	<body>
+		<div id="erreur">
+			
+		</div>
+		<form id='form' enctype="multipart/form-data">
+		    <h1>Creer compte</h1>
+			<input id="avatar" name="avatarUser" type="file" />
+<input id="pseudo" type="text" name="pseudo" placeholder="Nom" autofocus >
+<input id="email" type="text" name="email" placeholder="Email" autofocus > 
+<input id="password" type="password" name="psw" placeholder="Mot de passe" >
+<input id="birthday" type="date" name="birthday" placeholder="birthday" autofocus >
+
+<INPUT type= "radio" name="sexe" class='sexe' value="0"> homme
+<INPUT type= "radio" name="sexe" class='sexe' value="1"> femme
+
+	        <input type="submit" id="submit" value="Valider">
+		</form>
+	<script>
+
+		    $("#form").on('submit',function(e){
+		    	e.preventDefault();
+		    	var files=$('#avatar')[0].files[0];
+		    	var form=$(this).serialize();
+        	var datas = new FormData();
+          datas.append('file',files);
+          datas.append('form',form);
+          $.ajax({url:"upload/",type:'POST',data:datas,processData:false,contentType:false})
+        	.success(function(){
+        		console.log('datas sent'); 
+        	});
+		        /*$.post(
+		            'http://127.0.0.1/findly/api/user', 
+		            $( "#form" ).serialize(),
+		            function(data){ 
+		            	if(data.status == 'ok'){
+		            		$("body").html('Inscription validee');
+		            	}else if(data.status == 'double'){
+		            		$('#erreur').html('Déjà un utilisateur avec cette adresse mail');
+		            	}else{
+		            		$('#erreur').html('Erreur');
+		            	}
+		            },
+		            "json"
+		         );*/
+			});
+
+
+	</script>
+	</body>
+</html>
