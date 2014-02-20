@@ -59,18 +59,22 @@ $('input[name="name"]').on('keyup',function(e){
 });
 
 var user=document.getElementById('user');
-user.ondragover = function(e){
+user.addEventListener('dragover',function(e){
+	e.preventDefault();
 	this.classList.add('dragover');
-	return false;
-}
-user.ondrop = function(e){
+});
+user.addEventListener('dragleave',function(e){
+	e.preventDefault();
+	this.classList.remove('dragover');
+});
+user.addEventListener('drop',function(e){
 	e.preventDefault();
 	var files=e.dataTransfer.files;
 	var datas = new FormData();
   for (i in files) {
     datas.append('file'+i, files[i]);
   }
-  var xhr = new XMLHttpRequest();
+  /*var xhr = new XMLHttpRequest();
   xhr.open('POST', 'upload/');
    xhr.onload = function () {
 	  if(xhr.status === 200) {
@@ -79,8 +83,33 @@ user.ondrop = function(e){
 	    console.log('error');
 	  }
 	};
-	xhr.send(datas);
+	xhr.send(datas);*/
+	$.ajax({url:"upload/",type:'POST',data:datas,processData:false,contentType:false})
+	.success(function(){
+		console.log('files sent'); 
+	});
+});
+
+var messenger={
+  init : function(){
+    this.socket = io.connect('http://macbook-maraboutee.local:8080');
+		this.socket.emit('connect',{user:2});
+		this.listen();
+  },
+	listen :function(){
+		this.socket.on('connected',function(datas){
+			console.log('connected id:'+datas); 
+  	});
+		this.socket.on('message',function(datas){
+			console.log(datas); 
+		});
+	},
+	sendMessage : function(datas){  
+		this.socket.emit('message',datas);
+	},
 }
+messenger.init();
+messenger.sendMessage({from:2,to:2,message:'Salut'});
 
 
 

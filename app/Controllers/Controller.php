@@ -24,7 +24,7 @@ protected $model;
     $tpl=$f3->get('AJAX')?$this->tpl['async']:$this->tpl['sync'];
     $ext=substr($tpl,strrpos($tpl,'.')+1);
     $mime=$mimeTypes[$ext];
-    echo View::instance()->render($tpl,$mime);
+    echo Template::instance()->render($tpl,$mime);
   } 
   
 }
